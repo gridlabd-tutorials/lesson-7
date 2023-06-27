@@ -1,0 +1,26 @@
+#ifmissing "123.glm"
+#model get IEEE/123
+#endif
+#include "123.glm"
+
+// Task 1 - Add a commercial building to load 1
+
+// Task 2 - Add 4 residential buildings to load 2
+
+// Task 3 - Add an industrial load to load 4
+
+// Task 4 - Add an agricultural load to load 5
+
+// Task 5 - Add a public service load to load 6
+
+// Task 6 - Use weather forecast
+#python -m noaa_forecast -p=37.5,-122.4 -c=forecast.csv -n=forecast -g=forecast.glm
+#include "forecast.glm"
+clock
+{
+    timezone "${NOAA_FORECAST_TIMEZONE}";
+    starttime "${NOAA_FORECAST_STARTTIME}";
+    stoptime "${NOAA_FORECAST_STOPTIME}";
+}
+
+#output "IEEE-123-voltage-profile.png" -t profile -l 10
