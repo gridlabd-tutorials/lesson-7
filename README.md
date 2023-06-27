@@ -10,15 +10,27 @@ The goal of this lesson is to introduce the various ways of simulating loads tha
 
 ## Commercial Buildings
 
-TODO
+There are many types of commercial buildings that can be modeled in GridLAB-D. The most common are:
+- Education
+- Grocery
+- Healthcare
+- Large office
+- Restaurant
+- Retail
+- Small office
 
 ## Residential Buildings
 
-TODO
+There five types of residential buildings:
+- Apartment
+- Condo
+- House
+- Lodging
+- Townhouse
 
 ## Industrial Loads
 
-TODO
+Industrial loads are identified by their [NAICS code](https://naics.org/)
 
 ## Agricultural Loads
 
