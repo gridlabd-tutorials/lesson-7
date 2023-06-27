@@ -36,6 +36,7 @@ TODO
 4. Add an agricultural load to load 5
 5. Add a public service load to load 6
 6. Use the weather forecast for Denver Colorado
+7. Add a general time-varying load to load 7
 
 # Exercices
 
