@@ -4,14 +4,121 @@
 #include "123.glm"
 
 // Task 1 - Add a commercial building to load 1
+schedule setpoint
+{
+    * 7-17 * * 1-5 22.0;
+    * 18-6 * 10-4 1-5 18.0;
+    * 18-6 * 5-9 1-5 24.0;
+    * * * 10-4 6-0 18.0;
+    * * * 5-9 6-0 24.0; 
+}
+object building
+{
+    parent load_1;
+    building_type RETAIL;
+
+    // inputs
+    NH 4;
+    floor_area 150 m^2;
+    TS setpoint;
+
+    temperature_source "forecast.temperature";
+    electric_heat TRUE;
+    electrification_fraction 0.5;
+    electrification_efficiency 2.0;
+    occupancy 4;
+    PV 200 sf;
+    PX 10 kW;
+    BS 10 kWh;
+    PG 10 kW;
+    IC UNITY;
+}
 
 // Task 2 - Add 4 residential buildings to load 2
+object building:..4
+{
+    parent load_2;
+    floor_area 1500 sf;
+    dt 1h;
+
+    // thermal parameters
+    UA random.triangle(200,400) W/K;
+    CA random.triangle(1.5e6,2.5e6) J/K;
+    UI random.triangle(5000,7000) W/K;
+    CM random.triangle(7e6,9.e6) J/K;
+    UM random.triangle(500,700) W/K;
+
+    // design parameters
+    TH random.triangle(-20,-10) degC;
+    TC random.triangle(35,45) degC;
+    //QH 50000.0 W; // 0 to autosize
+    QE random.triangle(3,9) W/m^2;
+    QG random.triangle(0,2) W/m^2;
+    QO random.triangle(800,1600) W/unit;
+    QV random.triangle(200,600) W/unit;
+    SA random.triangle(10,20) m^2;
+
+    // control parameters
+    K 1.0;
+
+    // inputs
+    EU random.triangle(0.1,0.2) unit;
+    NG random.triangle(0.1,0.2) unit;
+    NH random.triangle(0,4) unit;
+    TS random.triangle(18,22) degC;
+
+    // outputs
+    PZM 0 pu; // constant impedance HVAC real power (pu.W)
+    PPM 0.3 pu; // constant power HVAC real power (pu.W)
+    QPM 0.03 pu; // constant power HVAC reactive power (pu.VAr)
+    PZE 0.5 pu; // constant impedance end-use real power (W)
+    PIE 0 pu; // constant current end-use real power (W)
+    PPE 0.5 pu; // constant power end-use real power (W)
+    QZE 0.05 pu; // constant impedance end-use reactive power (VAr)
+    QIE 0 pu; // constant current end-use reactive power (VAr)
+    QPE 0.5 pu; // constant power end-use reactive power (VAr)
+    PPH 0.06 pu; // constant power ventilation real power (pu.W/person)
+    QPH 0.01 pu; // constant power ventilation reactive power (pu.VAr/person)
+
+    temperature_source "forecast.temperature";
+
+    measured_demand_timestep 1wk;
+}
 
 // Task 3 - Add an industrial load to load 4
+object industrial
+{
+    parent load_4;
+    industry_code "MECS_313";
+    P0 1 MW;
+    schedule "1-12,0-4,12-23,1,0.5,0.5,0.5,0.5,0.5,0.5,0.99";
+    schedule "1-12,0-4,0-11,1.0,0.95";
+    schedule "1-12,5-6,0-11,0.1";
+}
 
 // Task 4 - Add an agricultural load to load 5
+object agricultural
+{
+    parent load_5;
+    P0 1 MW;
+    Mc 1 pu;
+    schedule "1-12,0-6,0-11,0.5,0.95";
+    schedule "6-10,0-6,12-23,1.0,0.99";
+    sensitivity_source "forecast.wind_speed";
+    sensitivity_base 0;
+    sensitivity_value -1e5;
+}
+
 
 // Task 5 - Add a public service load to load 6
+object public_service
+{
+    parent load_6;
+    P0 100 kW;
+    Pi 1 pu;
+    schedule "1-12,0-6,0-11,0.5,0.95";
+    schedule "1-12,0-6,12-23,1.0,0.99";
+}
 
 // Task 6 - Use weather forecast
 #python -m noaa_forecast -p=37.5,-122.4 -c=forecast.csv -n=forecast -g=forecast.glm
