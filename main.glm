@@ -130,6 +130,4 @@ clock
     stoptime "${NOAA_FORECAST_STOPTIME}";
 }
 
-// Task 7 - Add a general time-varying load to load_7
-
 #output "IEEE-123-voltage-profile.png" -t profile -l 10

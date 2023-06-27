@@ -19,6 +19,19 @@ There are many types of commercial buildings that can be modeled in GridLAB-D. T
 - Retail
 - Small office
 
+Buildings often use schedules to create time-varying properties. In GridLAB-D schedules are defined using the `schedule` directive, which allows you to specify a time window during which a value is used. The specification of a time window is `MINUTES HOURS DAYS MONTHS WEEKDAYS VALUE;`.  The `MINUTES`, `HOURS`, `DAYS`, `MONTHS`, and `WEEKDAYS` are specified as comma-separated values or ranges, e.g., `1,2,4-6` or `*` for all allowed values. For example the following schedule specifies a daytype weekday value of 22, and a nighttime weekday and weekend value of 18. 
+
+~~~
+schedule setpoint
+{
+    * 7-17 * * 1-5 22.0;
+    * 18-6 * * 1-5 18.0;
+    * * * * 6-0 18.0;
+}
+~~~
+
+Commercial building models have many parameters. For details, see the [`building` object documentation](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Building.md)
+
 ## Residential Buildings
 
 There five types of residential buildings:
@@ -28,17 +41,19 @@ There five types of residential buildings:
 - Lodging
 - Townhouse
 
+Residential building models are like commercial buildings in that they can have many parameters. For details, see the [`building` object documentation](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Building.md)
+
 ## Industrial Loads
 
-Industrial loads are identified by their [NAICS code](https://naics.org/)
+Industrial loads are identified by their [NAICS code](https://naics.org/). For details on how to model industrial loads, see the [`industrial` object documentation](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Industrial.md)
 
 ## Agricultural Loads
 
-TODO
+Agricultural loads can be sensitive to different weather variables from buildings.  See the [`agricultural` object documentation](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Agricultural.md) for details.
 
 ## Public Services
 
-TODO
+Public service loads are for street lights and other public services.  They are typically sensitive to daylight and rainfall. See [`public_service` object documentation] for details.
 
 ## Tasks
 
@@ -48,7 +63,6 @@ TODO
 4. Add an agricultural load to load 5
 5. Add a public service load to load 6
 6. Use the weather forecast for Denver Colorado
-7. Add a general time-varying load to load 7
 
 # Exercices
 
@@ -56,7 +70,7 @@ TODO
 
 # More Information
 
-* [TMY Weather](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Subcommand&doc=/Subcommand/Weather.md)
-* [NSRDB Weather](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Utilities&doc=/Utilities/Nsrdb_weather.md)
-* [METAR Weather](https://docs.gridlabd.us/)
-* [NOAA Weather](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Utilities&doc=/Utilities/Noaa_forecast.md)
+* [Building loads](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Building.md)
+* [Industrial loads](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Industrial.md)
+* [Agricultural loads](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Agricultural.md)
+* [Public service loads](https://docs.gridlabd.us/index.html?owner=arras-energy&project=gridlabd&branch=master&folder=/Module/Powerflow&doc=/Module/Powerflow/Public_service.md)
