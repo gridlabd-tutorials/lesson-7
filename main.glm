@@ -120,7 +120,7 @@ object public_service
 }
 
 // Task 6 - Use weather forecast
-#python -m noaa_forecast -p=39.86,-104.68 -c=forecast.csv -n=forecast -g=forecast.glm
+#python -m gridlabd.noaa_forecast -p=39.86,-104.68 -c=forecast.csv -n=forecast -g=forecast.glm
 #include "forecast.glm"
 clock
 {
